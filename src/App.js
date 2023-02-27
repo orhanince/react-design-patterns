@@ -1,5 +1,15 @@
 import './App.css';
-import {SplitScreen, RegularList, NumberedList, Modal} from './components';
+import {
+    SplitScreen,
+    RegularList,
+    NumberedList,
+    Modal,
+    CurrentUserLoader,
+    UserInfo,
+    UserLoader,
+    ResourceLoader,
+    ProductInfo
+} from './components';
 import {SmallPersonListItem} from "./people/SmallPersonListItem";
 import {LargePersonListItem} from "./people/LargePersonListItem";
 import {SmallProductListItem} from "./product/SmallProductListItem";
@@ -82,6 +92,19 @@ function App() {
           <Modal showText={"Show Modal"} hideText={"Hide Modal"}>
               <LargeProductListItem product={products[0]}/>
           </Modal>
+          <CurrentUserLoader>
+              <UserInfo/>
+          </CurrentUserLoader>
+
+          <UserLoader userId={"234"}>
+              <UserInfo />
+          </UserLoader>
+          <ResourceLoader resourceUrl={"/users/345"} resourceName={"user"}>
+                <UserInfo/>
+          </ResourceLoader>
+          <ResourceLoader resourceUrl={"/products/1234"} resourceName={"product"}>
+              <ProductInfo/>
+          </ResourceLoader>
       </>
   );
 }
