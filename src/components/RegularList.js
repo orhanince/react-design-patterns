@@ -3,9 +3,6 @@ export const RegularList = ({
     resourceName,
     itemComponent: ItemComponent
 }) => {
-    console.log('items', items);
-    console.log('resourceName', resourceName);
-    console.log('itemComponent', ItemComponent);
     return (
         <>
             {items.map((item, i) => {
