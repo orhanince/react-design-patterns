@@ -20,6 +20,13 @@ import {SmallPersonListItem} from "./people/SmallPersonListItem";
 import {LargePersonListItem} from "./people/LargePersonListItem";
 import {SmallProductListItem} from "./product/SmallProductListItem";
 import {LargeProductListItem} from "./product/LargeProductListItem";
+import {printProps} from './printProps';
+import {withUser} from './withUser';
+import { UserInfoForm } from './UserInfoForm';
+
+const UserInfoLoader = withUser(UserInfo, '234');
+const UserInfoWrapped = printProps(UserInfo);
+
 
 const StepOne = ({ goToNext }) => (
     <>
@@ -162,7 +169,9 @@ function App() {
                 <StepTwo/>
                 <StepThree/>
           </ControlledOnBoardingFlow>
-
+          <UserInfoWrapped name={"John Doe"} age={100} hairColor={"brown"}/>
+          <UserInfoLoader name={"John Doe"} age={100} hairColor={"brown"}/>
+          <UserInfoForm/>
       </>
     );
 }
