@@ -1,4 +1,5 @@
 import './App.css';
+import {useState} from 'react';
 import {
     SplitScreen,
     RegularList,
@@ -10,7 +11,7 @@ import {
     ResourceLoader,
     ProductInfo,
     UnControlledForm,
-    ControlledForm
+    ControlledForm, ControlledModal
 } from './components';
 import {SmallPersonListItem} from "./people/SmallPersonListItem";
 import {LargePersonListItem} from "./people/LargePersonListItem";
@@ -62,7 +63,8 @@ const RightHandComponent = ({message}) => {
 };
 
 function App() {
-  return (
+    const [shouldShowModal, setShouldShowModal] = useState(false);
+    return (
       <>
         <SplitScreen
             leftWeight={1}
@@ -109,8 +111,14 @@ function App() {
           </ResourceLoader>
           <UnControlledForm/>
           <ControlledForm/>
+          <ControlledModal shouldShow={shouldShowModal} onRequestClose={() => setShouldShowModal(false)} hideText={"Hide Modal"}>
+            <h1>Hello!</h1>
+          </ControlledModal>
+          <button onClick={() => setShouldShowModal(!shouldShowModal)}>{
+              shouldShowModal ? "Hide" : "Show"
+          }</button>
       </>
-  );
+    );
 }
 
 export default App;
