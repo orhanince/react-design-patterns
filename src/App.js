@@ -1,4 +1,5 @@
 import './App.css';
+import React, {useState} from 'react';
 import {
     SplitScreen,
     RegularList,
@@ -8,12 +9,43 @@ import {
     UserInfo,
     UserLoader,
     ResourceLoader,
-    ProductInfo
+    ProductInfo,
+    UnControlledForm,
+    ControlledForm,
+    ControlledModal,
+    UnControlledOnBoardingFlow,
+    ControlledOnBoardingFlow
 } from './components';
 import {SmallPersonListItem} from "./people/SmallPersonListItem";
 import {LargePersonListItem} from "./people/LargePersonListItem";
 import {SmallProductListItem} from "./product/SmallProductListItem";
 import {LargeProductListItem} from "./product/LargeProductListItem";
+import {printProps} from './printProps';
+import {withUser} from './withUser';
+import { UserInfoForm } from './UserInfoForm';
+
+const UserInfoLoader = withUser(UserInfo, '234');
+const UserInfoWrapped = printProps(UserInfo);
+
+
+const StepOne = ({ goToNext }) => (
+    <>
+        <h1>Step 1!</h1>
+        <button onClick={() => goToNext({ name: 'John Doe' })}>Next</button>
+    </>
+);
+const StepTwo = ({ goToNext }) => (
+    <>
+        <h1>Step 2!</h1>
+        <button onClick={() => goToNext({ age: 100 })}>Next</button>
+    </>
+);
+const StepThree = ({ goToNext }) => (
+    <>
+        <h1>Step 3!</h1>
+        <button onClick={() => goToNext({ hairColor: 'brown' })}>Next</button>
+    </>
+);
 
 const people = [{
   name: 'Person 1',
@@ -60,7 +92,16 @@ const RightHandComponent = ({message}) => {
 };
 
 function App() {
-  return (
+    const [onBoardingData, setOnBoardingData] = useState({});
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const onNext = stepData => {
+        setCurrentIndex(currentIndex + 1);
+        setOnBoardingData({...onBoardingData, ...stepData});
+    }
+
+    const [shouldShowModal, setShouldShowModal] = useState(false);
+    return (
       <>
         <SplitScreen
             leftWeight={1}
@@ -105,8 +146,34 @@ function App() {
           <ResourceLoader resourceUrl={"/products/1234"} resourceName={"product"}>
               <ProductInfo/>
           </ResourceLoader>
+          <UnControlledForm/>
+          <ControlledForm/>
+          <ControlledModal shouldShow={shouldShowModal} onRequestClose={() => setShouldShowModal(false)} hideText={"Hide Modal"}>
+            <h1>Hello!</h1>
+          </ControlledModal>
+          <button onClick={() => setShouldShowModal(!shouldShowModal)}>{
+              shouldShowModal ? "Hide" : "Show"
+          }</button>
+
+          <UnControlledOnBoardingFlow onFinish={() => alert("Finished!")}>
+              <StepOne/>
+              <StepTwo/>
+              <StepThree/>
+          </UnControlledOnBoardingFlow>
+
+          <ControlledOnBoardingFlow
+              currentIndex={currentIndex}
+              onNext={onNext}
+              onFinish={() => alert("Finished!")}>
+                <StepOne/>
+                <StepTwo/>
+                <StepThree/>
+          </ControlledOnBoardingFlow>
+          <UserInfoWrapped name={"John Doe"} age={100} hairColor={"brown"}/>
+          <UserInfoLoader name={"John Doe"} age={100} hairColor={"brown"}/>
+          <UserInfoForm/>
       </>
-  );
+    );
 }
 
 export default App;
