@@ -8,7 +8,9 @@ import {
     UserInfo,
     UserLoader,
     ResourceLoader,
-    ProductInfo
+    ProductInfo,
+    UnControlledForm,
+    ControlledForm
 } from './components';
 import {SmallPersonListItem} from "./people/SmallPersonListItem";
 import {LargePersonListItem} from "./people/LargePersonListItem";
@@ -105,6 +107,8 @@ function App() {
           <ResourceLoader resourceUrl={"/products/1234"} resourceName={"product"}>
               <ProductInfo/>
           </ResourceLoader>
+          <UnControlledForm/>
+          <ControlledForm/>
       </>
   );
 }
