@@ -11,6 +11,8 @@ import {UnControlledForm} from './UnControlledForm';
 import {ControlledForm} from './ControlledForm';
 import {UnControlledModal} from './UnControlledModal';
 import {ControlledModal} from './ControlledModal';
+import {UnControlledOnBoardingFlow} from './UnControlledOnBoardingFlow';
+import {ControlledOnBoardingFlow} from './ControlledOnBoardingFlow';
 
 export {
     SplitScreen,
@@ -25,5 +27,7 @@ export {
     UnControlledForm,
     ControlledForm,
     UnControlledModal,
-    ControlledModal
+    ControlledModal,
+    UnControlledOnBoardingFlow,
+    ControlledOnBoardingFlow
 };
